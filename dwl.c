@@ -124,7 +124,7 @@ typedef struct {
 	struct wl_listener set_hints;
 #endif
 	unsigned int bw;
-	unsigned int tags;
+	uint32_t tags;
 	int isfloating, isurgent, isfullscreen;
 	uint32_t resize; /* configure serial of a pending resize */
 } Client;
@@ -195,7 +195,7 @@ struct Monitor {
 	const Layout *lt[2];
 	unsigned int seltags;
 	unsigned int sellt;
-	unsigned int tagset[2];
+	uint32_t tagset[2];
 	double mfact;
 	int nmaster;
 	char ltsymbol[16];
@@ -214,7 +214,7 @@ typedef struct {
 typedef struct {
 	const char *id;
 	const char *title;
-	unsigned int tags;
+	uint32_t tags;
 	int isfloating;
 	int monitor;
 } Rule;
@@ -301,7 +301,7 @@ static void setfloating(Client *c, int floating);
 static void setfullscreen(Client *c, int fullscreen);
 static void setlayout(const Arg *arg);
 static void setmfact(const Arg *arg);
-static void setmon(Client *c, Monitor *m, unsigned int newtags);
+static void setmon(Client *c, Monitor *m, uint32_t newtags);
 static void setpsel(struct wl_listener *listener, void *data);
 static void setsel(struct wl_listener *listener, void *data);
 static void setup(void);
@@ -456,7 +456,7 @@ applyrules(Client *c)
 {
 	/* rule matching */
 	const char *appid, *title;
-	unsigned int i, newtags = 0;
+	uint32_t i, newtags = 0;
 	const Rule *r;
 	Monitor *mon = selmon, *m;
 
@@ -1843,7 +1843,7 @@ printstatus(void)
 {
 	Monitor *m = NULL;
 	Client *c;
-	unsigned int occ, urg, sel;
+	uint32_t occ, urg, sel;
 	const char *appid, *title;
 
 	wl_list_for_each(m, &mons, link) {
@@ -2093,7 +2093,7 @@ setmfact(const Arg *arg)
 }
 
 void
-setmon(Client *c, Monitor *m, unsigned int newtags)
+setmon(Client *c, Monitor *m, uint32_t newtags)
 {
 	Monitor *oldmon = c->mon;
 
@@ -2433,7 +2433,7 @@ togglefullscreen(const Arg *arg)
 void
 toggletag(const Arg *arg)
 {
-	unsigned int newtags;
+	uint32_t newtags;
 	Client *sel = focustop(selmon);
 	if (!sel)
 		return;
@@ -2449,7 +2449,7 @@ toggletag(const Arg *arg)
 void
 toggleview(const Arg *arg)
 {
-	unsigned int newtagset = selmon ? selmon->tagset[selmon->seltags] ^ (arg->ui & TAGMASK) : 0;
+	uint32_t newtagset = selmon ? selmon->tagset[selmon->seltags] ^ (arg->ui & TAGMASK) : 0;
 
 	if (newtagset) {
 		selmon->tagset[selmon->seltags] = newtagset;
