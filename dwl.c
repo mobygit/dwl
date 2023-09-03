@@ -2049,6 +2049,8 @@ void
 setfloating(Client *c, int floating)
 {
 	c->isfloating = floating;
+	if (!c->mon)
+		return;
 	wlr_scene_node_reparent(&c->scene->node, layers[c->isfloating ? LyrFloat : LyrTile]);
 	arrange(c->mon);
 	printstatus();
