@@ -11,7 +11,7 @@ static const unsigned int gappov           = 5; /* vert outer gap between window
 static const float bordercolor[]           = {0.0, 0.0, 0.0, 0.2};
 static const float focuscolor[]            = {0.0, 0.0, 0.0, 0.2};
 /* To conform the xdg-protocol, set the alpha to zero to restore the old behavior */
-static const float fullscreen_bg[]         = {0.1, 0.1, 0.1, 1.0};
+static const float fullscreen_bg[]         = {16.0/255.0, 14.0/255.0, 35.0/255.0, 1.0};
 
 /* Autostart */
 static const char *const autostart[] = {
@@ -121,7 +121,8 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 
 /* commands */
 static const char *termcmd[] = { "foot", NULL };
-static const char *menucmd[] = { "/bin/sh", "-c", "dmenu_path | wmenu | sh", NULL };
+static const char *menucmd[] = { "/bin/sh", "-c", "ddmenu_path | wmenu -f "JetBrainsMono NF Thin 12" -N 100E23 -n 8A889D -M 585273 | s
+h", NULL };
 
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
