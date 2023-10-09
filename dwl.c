@@ -2162,6 +2162,8 @@ setup(void)
 	for (i = 0; i < LENGTH(sig); i++)
 		sigaction(sig[i], &sa, NULL);
 
+	wlr_log_init(log_level, NULL);
+
 	/* The Wayland display is managed by libwayland. It handles accepting
 	 * clients from the Unix socket, manging Wayland globals, and so on. */
 	dpy = wl_display_create();
@@ -2821,9 +2823,11 @@ main(int argc, char *argv[])
 	char *startup_cmd = NULL;
 	int c;
 
-	while ((c = getopt(argc, argv, "s:hv")) != -1) {
+	while ((c = getopt(argc, argv, "s:hdv")) != -1) {
 		if (c == 's')
 			startup_cmd = optarg;
+		else if (c == 'd')
+			log_level = WLR_DEBUG;
 		else if (c == 'v')
 			die("dwl " VERSION);
 		else
@@ -2841,7 +2845,7 @@ main(int argc, char *argv[])
 	return EXIT_SUCCESS;
 
 usage:
-	die("Usage: %s [-v] [-s startup command]", argv[0]);
+	die("Usage: %s [-v] [-d] [-s startup command]", argv[0]);
 }
 
 /* dwl_wm_monitor_v1 */
