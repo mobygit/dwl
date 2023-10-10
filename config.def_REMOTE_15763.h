@@ -1,37 +1,3 @@
-<<<<<<< HEAD
-/* appearance */
-static const int sloppyfocus               = 1;  /* focus follows mouse */
-static const int bypass_surface_visibility = 0;  /* 1 means idle inhibitors will disable idle tracking even if it's surface isn't visible  */
-static const int smartgaps                 = 0;  /* 1 means no outer gap when there is only one window */
-static const int monoclegaps               = 0;  /* 1 means outer gaps in monocle layout */
-static const unsigned int borderpx         = 1;  /* border pixel of windows */
-static const unsigned int gappih           = 5; /* horiz inner gap between windows */
-static const unsigned int gappiv           = 5; /* vert inner gap between windows */
-static const unsigned int gappoh           = 5; /* horiz outer gap between windows and screen edge */
-static const unsigned int gappov           = 5; /* vert outer gap between windows and screen edge */
-static const float bordercolor[]           = {0.0, 0.0, 0.0, 0.2};
-static const float focuscolor[]            = {0.0, 0.0, 0.0, 0.2};
-/* To conform the xdg-protocol, set the alpha to zero to restore the old behavior */
-static const float fullscreen_bg[]         = {16.0/255.0, 14.0/255.0, 35.0/255.0, 1.0};
-
-/* Autostart */
-static const char *const autostart[] = {
-        "wbg", "/home/moby/Downloads/astolfo.jpg", NULL,
-        "pipewire", NULL,
-	"pipewire-pulse", NULL,
-	"wireplumber", NULL,
-	NULL /* terminate */
-};
-
-/* tagging - tagcount must be no greater than 31 */
-#define TAGCOUNT (9)
-static const int tagcount = TAGCOUNT;
-
-static const Rule rules[] = {
-	/* app_id     title       tags mask     isfloating   monitor */
-	/* examples: */
-	{ "Gimp",     NULL,       0,            1,           -1 },
-=======
 /* Taken from https://github.com/djpohly/dwl/issues/466 */
 #define COLOR(hex)    { ((hex >> 24) & 0xFF) / 255.0f, \
                         ((hex >> 16) & 0xFF) / 255.0f, \
@@ -59,23 +25,14 @@ static const Rule rules[] = {
 	{ "Gimp",     NULL,       0,            1,           -1 },
 	*/
 	{ "firefox",  NULL,       1 << 8,       0,           -1 },
->>>>>>> cadf5eb1e9ee1737789548130947852ba2edf0da
 };
 
 /* layout(s) */
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },
-<<<<<<< HEAD
-	//{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
-	{ "TTT",      bstack },
-	{ "===",      bstackhoriz },
-	{ "[D]",      deck },
-=======
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
->>>>>>> cadf5eb1e9ee1737789548130947852ba2edf0da
 };
 
 /* monitors */
@@ -146,73 +103,16 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 #define MODKEY WLR_MODIFIER_ALT
 
 #define TAGKEYS(KEY,SKEY,TAG) \
-<<<<<<< HEAD
-	{ MODKEY,                    -1, KEY,            view,            {.ui = 1 << TAG} }, \
-	{ MODKEY|WLR_MODIFIER_CTRL,  -1, KEY,            toggleview,      {.ui = 1 << TAG} }, \
-	{ MODKEY|WLR_MODIFIER_SHIFT, -1, SKEY,           tag,             {.ui = 1 << TAG} }, \
-	{ MODKEY|WLR_MODIFIER_CTRL|WLR_MODIFIER_SHIFT,-1,SKEY,toggletag,  {.ui = 1 << TAG} }
-=======
 	{ MODKEY,                    KEY,            view,            {.ui = 1 << TAG} }, \
 	{ MODKEY|WLR_MODIFIER_CTRL,  KEY,            toggleview,      {.ui = 1 << TAG} }, \
 	{ MODKEY|WLR_MODIFIER_SHIFT, SKEY,           tag,             {.ui = 1 << TAG} }, \
 	{ MODKEY|WLR_MODIFIER_CTRL|WLR_MODIFIER_SHIFT,SKEY,toggletag, {.ui = 1 << TAG} }
->>>>>>> cadf5eb1e9ee1737789548130947852ba2edf0da
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
 static const char *termcmd[] = { "foot", NULL };
-<<<<<<< HEAD
-static const char *menucmd[] = { "/bin/sh", "-c", "ddmenu_path | wmenu -f "JetBrainsMono NF Thin 12" -N 100E23 -n 8A889D -M 585273 | s
-h", NULL };
-
-static const Key keys[] = {
-	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
-	/* modifier                  chain,  key                 function        argument */
-	{ MODKEY,                    -1, XKB_KEY_p,          spawn,          {.v = menucmd} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, -1, XKB_KEY_Return,     spawn,          {.v = termcmd} },
-	{ MODKEY,                    -1, XKB_KEY_j,          focusstack,     {.i = +1} },
-	{ MODKEY,                    -1, XKB_KEY_k,          focusstack,     {.i = -1} },
-	{ MODKEY,                    -1, XKB_KEY_i,          incnmaster,     {.i = +1} },
-	{ MODKEY,                    -1, XKB_KEY_d,          incnmaster,     {.i = -1} },
-	{ MODKEY,                    -1, XKB_KEY_h,          setmfact,       {.f = -0.05} },
-	{ MODKEY,                    -1, XKB_KEY_l,          setmfact,       {.f = +0.05} },
-	{ MODKEY,                    -1, XKB_KEY_Return,     zoom,           {0} },
-	{ MODKEY,                    -1, XKB_KEY_Tab,        view,           {0} },
-	{ MODKEY|WLR_MODIFIER_LOGO,  -1, XKB_KEY_h,          incgaps,       {.i = +1 } },
-	{ MODKEY|WLR_MODIFIER_LOGO,  -1, XKB_KEY_l,          incgaps,       {.i = -1 } },
-	{ MODKEY|WLR_MODIFIER_LOGO|WLR_MODIFIER_SHIFT,   -1, XKB_KEY_H,      incogaps,      {.i = +1 } },
-	{ MODKEY|WLR_MODIFIER_LOGO|WLR_MODIFIER_SHIFT,   -1, XKB_KEY_L,      incogaps,      {.i = -1 } },
-	{ MODKEY|WLR_MODIFIER_LOGO|WLR_MODIFIER_CTRL,    -1, XKB_KEY_h,      incigaps,      {.i = +1 } },
-	{ MODKEY|WLR_MODIFIER_LOGO|WLR_MODIFIER_CTRL,    -1, XKB_KEY_l,      incigaps,      {.i = -1 } },
-	{ MODKEY|WLR_MODIFIER_LOGO,  -1, XKB_KEY_0,          togglegaps,     {0} },
-	{ MODKEY|WLR_MODIFIER_LOGO|WLR_MODIFIER_SHIFT,   -1, XKB_KEY_parenright,defaultgaps,    {0} },
-	{ MODKEY,                    -1, XKB_KEY_y,          incihgaps,     {.i = +1 } },
-	{ MODKEY,                    -1, XKB_KEY_o,          incihgaps,     {.i = -1 } },
-	{ MODKEY|WLR_MODIFIER_CTRL,  -1, XKB_KEY_y,          incivgaps,     {.i = +1 } },
-	{ MODKEY|WLR_MODIFIER_CTRL,  -1, XKB_KEY_o,          incivgaps,     {.i = -1 } },
-	{ MODKEY|WLR_MODIFIER_LOGO,  -1, XKB_KEY_y,          incohgaps,     {.i = +1 } },
-	{ MODKEY|WLR_MODIFIER_LOGO,  -1, XKB_KEY_o,          incohgaps,     {.i = -1 } },
-	{ MODKEY|WLR_MODIFIER_SHIFT, -1, XKB_KEY_Y,          incovgaps,     {.i = +1 } },
-	{ MODKEY|WLR_MODIFIER_SHIFT, -1, XKB_KEY_O,          incovgaps,     {.i = -1 } },
-	{ MODKEY|WLR_MODIFIER_SHIFT, -1, XKB_KEY_C,          killclient,     {0} },
-	{ MODKEY,                    -1, XKB_KEY_t,          setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                    -1, XKB_KEY_f,          setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                    -1, XKB_KEY_m,          setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                    -1, XKB_KEY_u,          setlayout,      {.v = &layouts[3]} },
-	{ MODKEY,                    -1, XKB_KEY_o,          setlayout,      {.v = &layouts[4]} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, -1, XKB_KEY_D,          setlayout,      {.v = &layouts[5]} },
-	{ MODKEY,                    -1, XKB_KEY_space,      setlayout,      {0} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, -1, XKB_KEY_space,      togglefloating, {0} },
-	{ MODKEY,                    -1, XKB_KEY_e,         togglefullscreen, {0} },
-	{ MODKEY,                    -1, XKB_KEY_0,          view,           {.ui = ~0} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, -1, XKB_KEY_parenright, tag,            {.ui = ~0} },
-	{ MODKEY,                    -1, XKB_KEY_comma,      focusmon,       {.i = WLR_DIRECTION_LEFT} },
-	{ MODKEY,                    -1, XKB_KEY_period,     focusmon,       {.i = WLR_DIRECTION_RIGHT} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, -1, XKB_KEY_less,       tagmon,         {.i = WLR_DIRECTION_LEFT} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, -1, XKB_KEY_greater,    tagmon,         {.i = WLR_DIRECTION_RIGHT} },
-=======
 static const char *menucmd[] = { "bemenu-run", NULL };
 
 static const Key keys[] = {
@@ -241,7 +141,6 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_period,     focusmon,       {.i = WLR_DIRECTION_RIGHT} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_less,       tagmon,         {.i = WLR_DIRECTION_LEFT} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_greater,    tagmon,         {.i = WLR_DIRECTION_RIGHT} },
->>>>>>> cadf5eb1e9ee1737789548130947852ba2edf0da
 	TAGKEYS(          XKB_KEY_1, XKB_KEY_exclam,                     0),
 	TAGKEYS(          XKB_KEY_2, XKB_KEY_at,                         1),
 	TAGKEYS(          XKB_KEY_3, XKB_KEY_numbersign,                 2),
@@ -251,18 +150,11 @@ static const Key keys[] = {
 	TAGKEYS(          XKB_KEY_7, XKB_KEY_ampersand,                  6),
 	TAGKEYS(          XKB_KEY_8, XKB_KEY_asterisk,                   7),
 	TAGKEYS(          XKB_KEY_9, XKB_KEY_parenleft,                  8),
-<<<<<<< HEAD
-	{ MODKEY|WLR_MODIFIER_SHIFT, -1, XKB_KEY_Q,          quit,           {0} },
-
-	/* Ctrl-Alt-Backspace and Ctrl-Alt-Fx used to be handled by X server */
-#define CHVT(n) { WLR_MODIFIER_CTRL|WLR_MODIFIER_ALT,-1,XKB_KEY_XF86Switch_VT_##n, chvt, {.ui = (n)} }
-=======
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Q,          quit,           {0} },
 
 	/* Ctrl-Alt-Backspace and Ctrl-Alt-Fx used to be handled by X server */
 	{ WLR_MODIFIER_CTRL|WLR_MODIFIER_ALT,XKB_KEY_Terminate_Server, quit, {0} },
 #define CHVT(n) { WLR_MODIFIER_CTRL|WLR_MODIFIER_ALT,XKB_KEY_XF86Switch_VT_##n, chvt, {.ui = (n)} }
->>>>>>> cadf5eb1e9ee1737789548130947852ba2edf0da
 	CHVT(1), CHVT(2), CHVT(3), CHVT(4), CHVT(5), CHVT(6),
 	CHVT(7), CHVT(8), CHVT(9), CHVT(10), CHVT(11), CHVT(12),
 };

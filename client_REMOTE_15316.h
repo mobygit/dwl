@@ -324,8 +324,6 @@ client_send_close(Client *c)
 }
 
 static inline void
-<<<<<<< HEAD
-=======
 client_set_border_color(Client *c, const float color[static 4])
 {
 	int i;
@@ -334,7 +332,6 @@ client_set_border_color(Client *c, const float color[static 4])
 }
 
 static inline void
->>>>>>> cadf5eb1e9ee1737789548130947852ba2edf0da
 client_set_fullscreen(Client *c, int fullscreen)
 {
 #ifdef XWAYLAND

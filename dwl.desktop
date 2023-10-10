@@ -1,5 +1,11 @@
 [Desktop Entry]
+<<<<<<< HEAD
 Name=DWL
 Comment=dwm for Wayland
 Exec=dbus-run-session dwl
+=======
+Name=dwl
+Comment=dwm for Wayland
+Exec=dwl
+>>>>>>> cadf5eb1e9ee1737789548130947852ba2edf0da
 Type=Application
